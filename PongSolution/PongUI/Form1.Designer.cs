@@ -62,7 +62,7 @@
             this.Controls.Add(this.firstPlayerScore);
             this.Font = new System.Drawing.Font("Lucida Sans", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
-            this.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.Margin = new System.Windows.Forms.Padding(9);
             this.MaximumSize = new System.Drawing.Size(1000, 750);
             this.MinimumSize = new System.Drawing.Size(1000, 750);
             this.Name = "MainForm";
