@@ -10,11 +10,20 @@ using System.Windows.Forms;
 
 namespace PongUI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            for (int i = 0; i < 30; i++)
+            {
+                g.FillRectangle(Brushes.White, 498, i *25, 4, 20);
+            }
         }
     }
 }

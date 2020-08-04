@@ -1,0 +1,10 @@
+D:\repos\Pong\PongSolution\PongUI\bin\Debug\PongUI.exe.config
+D:\repos\Pong\PongSolution\PongUI\bin\Debug\PongUI.exe
+D:\repos\Pong\PongSolution\PongUI\bin\Debug\PongUI.pdb
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csprojAssemblyReference.cache
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.MainForm.resources
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.Properties.Resources.resources
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csproj.GenerateResource.cache
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csproj.CoreCompileInputs.cache
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.exe
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.pdb
