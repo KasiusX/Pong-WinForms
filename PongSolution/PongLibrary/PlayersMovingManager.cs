@@ -14,7 +14,6 @@ namespace PongLibrary
     {
         PlayerModel firstPlayer;
         PlayerModel secondPlayer;
-        IPlayerMovementRequestor requestor;
         Form form; 
         
         private delegate bool delIsKeyDown(Key key);
@@ -23,48 +22,79 @@ namespace PongLibrary
         delIsKeyDown DelIsKeyDown;
         delMakeMove DelFirstPlayerUp;
         delMakeMove DelFirstPlayerDown;
+        delMakeMove DelSecondPlayerUp;
+        delMakeMove DelSecondPlayerDown;
 
         System.Timers.Timer playerOneTimer = new System.Timers.Timer(20);
+        System.Timers.Timer playerTwoTimer = new System.Timers.Timer(20);
 
         public PlayersMovingManager(IPlayerMovementRequestor requestor, PlayerModel firstPlayer, PlayerModel secondPlayer)
         {
             this.firstPlayer = firstPlayer;
             this.secondPlayer = secondPlayer;
-            this.requestor = requestor;
             this.form = (Form)requestor;
 
-            delIsKeyDown DelIsKeyDown = new delIsKeyDown(Keyboard.IsKeyDown);
-            delMakeMove DelFirstPlayerUp = new delMakeMove(requestor.FirstPlayerUp);
-            delMakeMove DelFirstPlayerDown = new delMakeMove(requestor.FirstPlayerDown);
-            //playerOneTimer.Elapsed += CheckKeysPlayerOne;            
-            
+            DelIsKeyDown = new delIsKeyDown(Keyboard.IsKeyDown);
 
+            DelFirstPlayerUp = new delMakeMove(requestor.FirstPlayerUp);
+            DelFirstPlayerDown = new delMakeMove(requestor.FirstPlayerDown);
+            playerOneTimer.Elapsed += CheckKeysPlayerOne;
+
+            DelSecondPlayerUp = new delMakeMove(requestor.SecondPlayerUp);
+            DelSecondPlayerDown = new delMakeMove(requestor.SecondPlayerDown);
+            playerTwoTimer.Elapsed += CheckKeysPlayerTwo;
         }
+
         //(bool)form.Invoke(DelIsKeyDown, Key.W)
-        public void CheckKeysPlayerOne()
+        public void CheckKeysPlayerOne(Object source, ElapsedEventArgs e)
         {
-            //bool test = (bool)form.Invoke(DelIsKeyDown, Key.W);
-            if ((bool)form.Invoke(DelIsKeyDown, Key.W))
+            try
             {
-                MessageBox.Show("Test");
-                //form.Invoke(DelFirstPlayerUp);
+                if ((bool)form.Invoke(DelIsKeyDown, Key.W) && firstPlayer.Y > 0)
+                {
 
+                    form.Invoke(DelFirstPlayerUp);
+                    firstPlayer.Y -= 8;
+                }
+                else if ((bool)form.Invoke(DelIsKeyDown, Key.S) && firstPlayer.Y < 610)
+                {
+                    form.Invoke(DelFirstPlayerDown);
+                    firstPlayer.Y += 8;
+                }
             }
-            else if((bool)form.Invoke(DelIsKeyDown, Key.S))
-            {
-                form.Invoke(DelFirstPlayerDown);
-            }
+            catch { }
+            
         }
 
-        private void FirstPlayerTimer(Object source, ElapsedEventArgs e)
+        public void CheckKeysPlayerTwo(Object source, ElapsedEventArgs e)
         {
-            
+            try
+            {
+                if ((bool)form.Invoke(DelIsKeyDown, Key.Up) && secondPlayer.Y > 0)
+                {
+                    form.Invoke(DelSecondPlayerUp);
+                    secondPlayer.Y -= 8;
+                }
+                else if ((bool)form.Invoke(DelIsKeyDown, Key.Down) && secondPlayer.Y < 610)
+                {
+                    form.Invoke(DelSecondPlayerDown);
+                    secondPlayer.Y += 8;
+                }
+            }
+            catch { }
         }
 
         public void Start()
         {
-            //playerOneTimer.Start();
-            CheckKeysPlayerOne();
+            playerOneTimer.Start();
+            playerTwoTimer.Start();
         }
+
+        public void Stop()
+        {
+            playerOneTimer.Stop();
+            playerTwoTimer.Stop();
+        }
+
     }
 }

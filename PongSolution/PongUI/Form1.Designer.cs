@@ -57,12 +57,14 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(349, 420);
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(214)))), ((int)(((byte)(251)))));
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(375, 300);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(240, 94);
+            this.button1.Size = new System.Drawing.Size(250, 100);
             this.button1.TabIndex = 1;
             this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
@@ -81,6 +83,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 750);
             this.Name = "MainForm";
             this.Text = "PONG";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
