@@ -1,0 +1,6 @@
+D:\repos\Pong\PongSolution\PongLibrary\bin\Debug\PongLibrary.dll
+D:\repos\Pong\PongSolution\PongLibrary\bin\Debug\PongLibrary.pdb
+D:\repos\Pong\PongSolution\PongLibrary\obj\Debug\PongLibrary.csprojAssemblyReference.cache
+D:\repos\Pong\PongSolution\PongLibrary\obj\Debug\PongLibrary.csproj.CoreCompileInputs.cache
+D:\repos\Pong\PongSolution\PongLibrary\obj\Debug\PongLibrary.dll
+D:\repos\Pong\PongSolution\PongLibrary\obj\Debug\PongLibrary.pdb
