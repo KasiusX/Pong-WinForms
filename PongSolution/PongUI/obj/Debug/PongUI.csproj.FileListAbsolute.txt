@@ -8,3 +8,6 @@ D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csproj.GenerateResource.cache
 D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csproj.CoreCompileInputs.cache
 D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.exe
 D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.pdb
+D:\repos\Pong\PongSolution\PongUI\bin\Debug\PongLibrary.dll
+D:\repos\Pong\PongSolution\PongUI\bin\Debug\PongLibrary.pdb
+D:\repos\Pong\PongSolution\PongUI\obj\Debug\PongUI.csproj.CopyComplete
