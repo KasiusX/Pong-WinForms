@@ -12,22 +12,26 @@ namespace PongLibrary
 {
     public class PlayersMovingManager
     {
+        //Players models with informations about them
         PlayerModel firstPlayer;
         PlayerModel secondPlayer;
         Form form; 
         
+        //Delegates, on to call players movement and Keyboard.IsKeyDown
         private delegate bool delIsKeyDown(Key key);
         private delegate void delMakeMove();
 
+        //Instances of delegates to make them public
         delIsKeyDown DelIsKeyDown;
         delMakeMove DelFirstPlayerUp;
         delMakeMove DelFirstPlayerDown;
         delMakeMove DelSecondPlayerUp;
         delMakeMove DelSecondPlayerDown;
 
+        //Timer for each player
         System.Timers.Timer playerOneTimer = new System.Timers.Timer(20);
         System.Timers.Timer playerTwoTimer = new System.Timers.Timer(20);
-
+                
         public PlayersMovingManager(IPlayerMovementRequestor requestor, PlayerModel firstPlayer, PlayerModel secondPlayer)
         {
             this.firstPlayer = firstPlayer;
@@ -45,8 +49,12 @@ namespace PongLibrary
             playerTwoTimer.Elapsed += CheckKeysPlayerTwo;
         }
 
-        //(bool)form.Invoke(DelIsKeyDown, Key.W)
-        public void CheckKeysPlayerOne(Object source, ElapsedEventArgs e)
+        /// <summary>
+        /// Check if any key for player one is pressed and if yes call the Method on thread which form lives on
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void CheckKeysPlayerOne(Object source, ElapsedEventArgs e)
         {
             try
             {
@@ -66,7 +74,12 @@ namespace PongLibrary
             
         }
 
-        public void CheckKeysPlayerTwo(Object source, ElapsedEventArgs e)
+        /// <summary>
+        /// Check if any key for player two is pressed and if yes call the Method on thread which form lives on
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void CheckKeysPlayerTwo(Object source, ElapsedEventArgs e)
         {
             try
             {
@@ -84,12 +97,18 @@ namespace PongLibrary
             catch { }
         }
 
+        /// <summary>
+        /// Start both timers for players
+        /// </summary>
         public void Start()
         {
             playerOneTimer.Start();
             playerTwoTimer.Start();
         }
 
+        /// <summary>
+        /// Stop both timers for players
+        /// </summary>
         public void Stop()
         {
             playerOneTimer.Stop();

@@ -20,7 +20,7 @@ namespace PongUI
         public MainForm()
         {
             InitializeComponent();
-            manager = new PlayersMovingManager(this, new PlayerModel { Score = 0, X = firstPlayerStartingX, Y = firstPlayerY, Heigth = playerHeight, Width = playerWidth }, new PlayerModel { Score = 0, X = secondPlayerStartingX, Y = secondPlayerY, Heigth = playerHeight, Width = playerWidth });
+            manager = new PlayersMovingManager(this, new PlayerModel { Score = 0, X = firstPlayerStartingX, Y = firstPlayerY, Heigth = playerHeight, Width = playerWidth }, new PlayerModel { Score = 0, X = secondPlayerStartingX, Y = secondPlayerY, Heigth = playerHeight, Width = playerWidth });            
         }
 
         public void FirstPlayerDown()
