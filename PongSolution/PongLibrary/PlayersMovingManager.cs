@@ -15,7 +15,8 @@ namespace PongLibrary
         //Players models with informations about them
         PlayerModel firstPlayer;
         PlayerModel secondPlayer;
-        Form form; 
+        Form form;
+        const int refreshRate = 10;
         
         //Delegates, on to call players movement and Keyboard.IsKeyDown
         private delegate bool delIsKeyDown(Key key);
@@ -26,8 +27,8 @@ namespace PongLibrary
         refresh Refresh;
 
         //Timer for each player
-        System.Timers.Timer playerOneTimer = new System.Timers.Timer(20);
-        System.Timers.Timer playerTwoTimer = new System.Timers.Timer(20);
+        System.Timers.Timer playerOneTimer = new System.Timers.Timer(refreshRate);
+        System.Timers.Timer playerTwoTimer = new System.Timers.Timer(refreshRate);
                 
         public PlayersMovingManager(Form form, PlayerModel firstPlayer, PlayerModel secondPlayer)
         {
