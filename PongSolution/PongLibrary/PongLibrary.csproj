@@ -34,6 +34,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +48,7 @@
     <Compile Include="BallModel.cs" />
     <Compile Include="BallMovementManager.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="IScoreRequestor.cs" />
     <Compile Include="PlayerModel.cs" />
     <Compile Include="PlayersMovingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

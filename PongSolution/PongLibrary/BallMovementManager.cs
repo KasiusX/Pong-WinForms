@@ -12,6 +12,7 @@ namespace PongLibrary
         PlayerModel secondPlayer;
         BallModel ball;
         Form form;
+        IScoreRequestor requestor;
 
         const int refreshRate = 20;
 
@@ -20,18 +21,21 @@ namespace PongLibrary
 
         private delegate void refresh();
         refresh Refresh;
+        refresh Scored;
 
         System.Timers.Timer ballTimer = new System.Timers.Timer(refreshRate);
 
 
-        public BallMovementManager(Form form,PlayerModel firstPlayer, PlayerModel secondPlayer, BallModel ball)
+        public BallMovementManager(IScoreRequestor form, PlayerModel firstPlayer, PlayerModel secondPlayer, BallModel ball)
         {
             this.firstPlayer = firstPlayer;
             this.secondPlayer = secondPlayer;
             this.ball = ball;
-            this.form = form;
+            this.form = (Form)form;
+            this.requestor = form;
 
-            Refresh = form.Refresh;
+            Refresh = this.form.Refresh;
+            Scored = requestor.Scored;
             ballTimer.Elapsed += MakeMove;
         }
 
@@ -43,10 +47,45 @@ namespace PongLibrary
                 //checking for correct y of ball to contact with the first player
                 if ((ball.Y > firstPlayer.Y && firstPlayer.Y + firstPlayer.Heigth > ball.Y) || (ball.Y < firstPlayer.Y && firstPlayer.Y < ball.Y + ball.WidthHeight))
                 {
-                    leftRight = LeftRight.Right;                    
+                    leftRight = LeftRight.Right;
                 }
-            }            
-            
+            }
+
+            //check if first player missed the ball
+            if(ball.X <= 0)
+            {
+                secondPlayer.Score += 1;
+                form.Invoke(Scored);
+            }
+
+            //checking for correct x of ball to contact with the second player
+            if (ball.X + ball.WidthHeight <= secondPlayer.X && ball.X + ball.WidthHeight + ball.BallSpeedSide >= secondPlayer.X)
+            {
+                //checking for correct y of ball to contact with the second player
+                if ((ball.Y < secondPlayer.Y + secondPlayer.Heigth && ball.Y > secondPlayer.Y) || (ball.Y < secondPlayer.Y && ball.Y + ball.WidthHeight > secondPlayer.Y))
+                {
+                    leftRight = LeftRight.Left;
+                }
+            }
+
+            //check if second player missed the ball
+            if(ball.X + ball.WidthHeight >= form.ClientSize.Width)
+            {
+                firstPlayer.Score += 1;
+                form.Invoke(Scored);
+            }
+
+            //checking if the ball hitted bottom edge
+            if (ball.Y + ball.WidthHeight <= form.ClientSize.Height && ball.Y + ball.WidthHeight + ball.BallSpeedHeight >= form.ClientSize.Height)
+            {
+                upDown = UpDown.Up;
+            }
+
+            if (ball.Y >= 0 && ball.Y - ball.BallSpeedHeight < 0)
+            {
+                upDown = UpDown.Down;
+            }
+
 
 
 
@@ -59,13 +98,13 @@ namespace PongLibrary
                 ball.Y -= ball.BallSpeedHeight;
             else
                 ball.Y += ball.BallSpeedHeight;
-            
+
             try
             {
                 form.Invoke(Refresh);
             }
             catch { }
-            
+
         }
 
         private void GenerateRandomStart()
@@ -80,15 +119,20 @@ namespace PongLibrary
             if (up == 0)
                 upDown = UpDown.Up;
             else
-                upDown = UpDown.Down;            
+                upDown = UpDown.Down;
+            ball.BallSpeedHeight = random.Next(3, 8);
+            ball.BallSpeedSide = random.Next(3, 8);
         }
 
         public void Start()
         {
-            //GenerateRandomStart();
-            leftRight = LeftRight.Left;
-            upDown = UpDown.Down;
+            GenerateRandomStart();
             ballTimer.Start();
+        }
+
+        public void Stop()
+        {
+            ballTimer.Stop();
         }
 
     }

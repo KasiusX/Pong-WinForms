@@ -11,6 +11,10 @@ namespace PongLibrary
     public class BallModel
     {
         public int WidthHeight { get; set; }
+        public int BallSpeedSideMin { get; set; }
+        public int BallSpeedSideMax { get; set; }
+        public int BallSpeedHeightMin { get; set; }
+        public int BallSpeedHeightMax { get; set; }
         public int BallSpeedSide { get; set; }
         public int BallSpeedHeight { get; set; }
         public int X { get; set; }

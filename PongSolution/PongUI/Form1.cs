@@ -1,11 +1,12 @@
 ﻿using PongLibrary;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PongUI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IScoreRequestor
     {
         //player properties
         const int playerWidth = 20;
@@ -18,8 +19,10 @@ namespace PongUI
 
         //ball properties
         const int WidthHeight = 20;
-        const int ballSpeedSide = 3;
-        const int ballSpeedHeight = 1;
+        const int ballSpeedSideMin = 5;
+        const int ballSpeedSideMax = 12;
+        const int ballSpeedHeightMin = 5;
+        const int ballSpeedHeightMax = 12;
 
         //line properties
         const int lineWidth = 4;
@@ -36,7 +39,7 @@ namespace PongUI
         public MainForm()
         {
             InitializeComponent();
-            ball = new BallModel { BallSpeedSide = ballSpeedSide,BallSpeedHeight=ballSpeedHeight, WidthHeight = WidthHeight, X = ClientSize.Width / 2 - WidthHeight / 2, Y = ClientSize.Height / 2 - WidthHeight / 2 };
+            ball = new BallModel { BallSpeedSideMin = ballSpeedSideMin,BallSpeedSideMax = ballSpeedSideMax,BallSpeedHeightMin = ballSpeedHeightMin,BallSpeedHeightMax = ballSpeedHeightMax, WidthHeight = WidthHeight, X = ClientSize.Width / 2 - WidthHeight / 2, Y = ClientSize.Height / 2 - WidthHeight / 2 };
 
             movementManager = new PlayersMovingManager(this,firstPlayer ,secondPlayer );
             ballManager = new BallMovementManager(this, firstPlayer, secondPlayer, ball);
@@ -63,13 +66,37 @@ namespace PongUI
         {
             button1.Visible = false;
             this.Refresh();
-            movementManager.Start();
-            ballManager.Start();
+            Start();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             movementManager.Stop();
+        }
+
+        public void Scored()
+        {
+            movementManager.Stop();
+            ballManager.Stop();
+            ResetPositions();
+            firstPlayerScore.Text = firstPlayer.Score.ToString();
+            secondPlayerScore.Text = secondPlayer.Score.ToString();
+            Thread.Sleep(1000);
+            Start();
+        }
+
+        private void ResetPositions() 
+        {
+            firstPlayer.Y = firstPlayerY;
+            secondPlayer.Y = secondPlayerY;
+            ball.X = ClientSize.Width / 2 - WidthHeight / 2;
+            ball.Y = ClientSize.Height / 2 - WidthHeight / 2;
+        }
+
+        private void Start()
+        {
+            movementManager.Start();
+            ballManager.Start();
         }
     }
 }
