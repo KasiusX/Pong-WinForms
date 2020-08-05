@@ -19,33 +19,26 @@ namespace PongLibrary
         
         //Delegates, on to call players movement and Keyboard.IsKeyDown
         private delegate bool delIsKeyDown(Key key);
-        private delegate void delMakeMove();
+        private delegate void refresh();
 
         //Instances of delegates to make them public
-        delIsKeyDown DelIsKeyDown;
-        delMakeMove DelFirstPlayerUp;
-        delMakeMove DelFirstPlayerDown;
-        delMakeMove DelSecondPlayerUp;
-        delMakeMove DelSecondPlayerDown;
+        delIsKeyDown DelIsKeyDown;        
+        refresh Refresh;
 
         //Timer for each player
         System.Timers.Timer playerOneTimer = new System.Timers.Timer(20);
         System.Timers.Timer playerTwoTimer = new System.Timers.Timer(20);
                 
-        public PlayersMovingManager(IPlayerMovementRequestor requestor, PlayerModel firstPlayer, PlayerModel secondPlayer)
+        public PlayersMovingManager(Form form, PlayerModel firstPlayer, PlayerModel secondPlayer)
         {
             this.firstPlayer = firstPlayer;
             this.secondPlayer = secondPlayer;
-            this.form = (Form)requestor;
+            this.form = form;
 
             DelIsKeyDown = new delIsKeyDown(Keyboard.IsKeyDown);
-
-            DelFirstPlayerUp = new delMakeMove(requestor.FirstPlayerUp);
-            DelFirstPlayerDown = new delMakeMove(requestor.FirstPlayerDown);
+            Refresh = form.Refresh;
+            
             playerOneTimer.Elapsed += CheckKeysPlayerOne;
-
-            DelSecondPlayerUp = new delMakeMove(requestor.SecondPlayerUp);
-            DelSecondPlayerDown = new delMakeMove(requestor.SecondPlayerDown);
             playerTwoTimer.Elapsed += CheckKeysPlayerTwo;
         }
 
@@ -61,13 +54,13 @@ namespace PongLibrary
                 if ((bool)form.Invoke(DelIsKeyDown, Key.W) && firstPlayer.Y > 0)
                 {
 
-                    form.Invoke(DelFirstPlayerUp);
-                    firstPlayer.Y -= 8;
+                    form.Invoke(Refresh);
+                    firstPlayer.Y -= firstPlayer.MovingSpeed;
                 }
                 else if ((bool)form.Invoke(DelIsKeyDown, Key.S) && firstPlayer.Y < 610)
                 {
-                    form.Invoke(DelFirstPlayerDown);
-                    firstPlayer.Y += 8;
+                    form.Invoke(Refresh);
+                    firstPlayer.Y += firstPlayer.MovingSpeed;
                 }
             }
             catch { }
@@ -85,13 +78,13 @@ namespace PongLibrary
             {
                 if ((bool)form.Invoke(DelIsKeyDown, Key.Up) && secondPlayer.Y > 0)
                 {
-                    form.Invoke(DelSecondPlayerUp);
-                    secondPlayer.Y -= 8;
+                    form.Invoke(Refresh);
+                    secondPlayer.Y -= secondPlayer.MovingSpeed;
                 }
                 else if ((bool)form.Invoke(DelIsKeyDown, Key.Down) && secondPlayer.Y < 610)
                 {
-                    form.Invoke(DelSecondPlayerDown);
-                    secondPlayer.Y += 8;
+                    form.Invoke(Refresh);
+                    secondPlayer.Y += secondPlayer.MovingSpeed;
                 }
             }
             catch { }

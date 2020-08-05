@@ -13,6 +13,6 @@ namespace PongLibrary
         public int Y { get; set; }
         public int Width { get; set; }
         public int Heigth { get; set; }
-
+        public int MovingSpeed { get; set; }
     }
 }

@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PlayerModel.cs" />
-    <Compile Include="IPlayerMovementRequestor.cs" />
     <Compile Include="PlayersMovingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

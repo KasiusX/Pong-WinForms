@@ -5,46 +5,24 @@ using System.Windows.Forms;
 
 namespace PongUI
 {
-    public partial class MainForm : Form, IPlayerMovementRequestor
+    public partial class MainForm : Form
     {
         const int playerWidth = 20;
         const int playerHeight = 100;        
         const int firstPlayerStartingX = 60;
         const int secondPlayerStartingX = 900;
+        const int firstPlayerY = 325;
+        const int secondPlayerY = 325;
+        const int playerSpeed = 10;
 
-        private int firstPlayerY = 325;
-        private int secondPlayerY = 325;
-
+        PlayerModel firstPlayer = new PlayerModel { Score = 0, X = firstPlayerStartingX, Y = firstPlayerY, Heigth = playerHeight, Width = playerWidth, MovingSpeed = playerSpeed };
+        PlayerModel secondPlayer = new PlayerModel { Score = 0, X = secondPlayerStartingX, Y = secondPlayerY, Heigth = playerHeight, Width = playerWidth, MovingSpeed = playerSpeed };
 
         PlayersMovingManager manager;
         public MainForm()
         {
             InitializeComponent();
-            manager = new PlayersMovingManager(this, new PlayerModel { Score = 0, X = firstPlayerStartingX, Y = firstPlayerY, Heigth = playerHeight, Width = playerWidth }, new PlayerModel { Score = 0, X = secondPlayerStartingX, Y = secondPlayerY, Heigth = playerHeight, Width = playerWidth });            
-        }
-
-        public void FirstPlayerDown()
-        {
-            firstPlayerY += 8;
-            this.Refresh();
-        }
-
-        public void FirstPlayerUp()
-        {
-            firstPlayerY -= 8;
-            this.Refresh();
-        }
-
-        public void SecondPlayerDown()
-        {
-            secondPlayerY += 8;
-            this.Refresh();
-        }
-
-        public void SecondPlayerUp()
-        {
-            secondPlayerY -= 8;
-            this.Refresh();
+            manager = new PlayersMovingManager(this,firstPlayer ,secondPlayer );            
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
@@ -57,8 +35,8 @@ namespace PongUI
             }
 
             //Nakreslý každého hráče
-            g.FillRectangle(Brushes.Black, firstPlayerStartingX, firstPlayerY, playerWidth, playerHeight);
-            g.FillRectangle(Brushes.Black, secondPlayerStartingX, secondPlayerY, playerWidth, playerHeight);
+            g.FillRectangle(Brushes.Black, firstPlayerStartingX, firstPlayer.Y, firstPlayer.Width, firstPlayer.Heigth);
+            g.FillRectangle(Brushes.Black, secondPlayerStartingX, secondPlayer.Y, secondPlayer.Width, secondPlayer.Heigth);
         }
 
         private void button1_Click(object sender, EventArgs e)
