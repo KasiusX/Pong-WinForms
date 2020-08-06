@@ -19,10 +19,10 @@ namespace PongUI
 
         //ball properties
         const int WidthHeight = 20;
-        const int ballSpeedSideMin = 5;
-        const int ballSpeedSideMax = 12;
-        const int ballSpeedHeightMin = 5;
-        const int ballSpeedHeightMax = 12;
+        const int ballSpeedSideMin = 8;
+        const int ballSpeedSideMax = 14;
+        const int ballSpeedHeightMin = 8;
+        const int ballSpeedHeightMax = 14;
 
         //line properties
         const int lineWidth = 4;
