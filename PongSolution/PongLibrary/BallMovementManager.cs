@@ -120,8 +120,8 @@ namespace PongLibrary
                 upDown = UpDown.Up;
             else
                 upDown = UpDown.Down;
-            ball.BallSpeedHeight = random.Next(3, 8);
-            ball.BallSpeedSide = random.Next(3, 8);
+            ball.BallSpeedHeight = random.Next(ball.BallSpeedHeightMin, ball.BallSpeedHeightMax);
+            ball.BallSpeedSide = random.Next(ball.BallSpeedSideMin, ball.BallSpeedSideMax);
         }
 
         public void Start()
